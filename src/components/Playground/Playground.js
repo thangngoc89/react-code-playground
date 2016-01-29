@@ -1,19 +1,31 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import CodeEditor from '../CodeEditor'
 import Nav from '../Nav'
 import Result from '../Result'
 import styles from './Playground.scss'
 
 class Playground extends Component {
+  static propTypes = {
+    html: PropTypes.string,
+    css: PropTypes.string,
+    javascript: PropTypes.string,
+  };
+
+  static defaultProps = {
+    html: '',
+    css: '',
+    javascript: ''
+  };
+
   constructor (props) {
     super(props)
 
     this.state = {
       activeTab: 'result',
       code: {
-        javascript: `console.log('hello')`,
-        html: '<html><body><p>fsfsdf</p></body></html>',
-        css: '.foo{border:none}'
+        css: props.css,
+        html: props.html,
+        javascript: props.javascript
       }
     }
 

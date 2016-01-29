@@ -1,12 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import styles from './Result.scss'
 import generator from './generateIframeContent'
-// var iframe = document.createElement('iframe');
-// var html = '<body>Foo</body>';
-// document.body.appendChild(iframe);
-// iframe.contentWindow.document.open();
-// iframe.contentWindow.document.write(html);
-// iframe.contentWindow.document.close();
 
 class Result extends Component {
   static propTypes = {

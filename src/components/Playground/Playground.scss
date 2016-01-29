@@ -1,8 +1,14 @@
 @import "../global";
 
 .main {
+  height: 100%;
   position: relative;
   overflow: hidden;
   border: 1px solid $color-divider;
   font-family: sans-serif;
+}
+
+:global .ReactCodeMirror {
+  height: 100%;
+  position: relative;
 }
