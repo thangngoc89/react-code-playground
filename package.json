@@ -1,7 +1,7 @@
 {
-  "name": "react-playground-component",
+  "name": "code-playground",
   "version": "0.1.0",
-  "description": "A playground component built for React.js",
+  "description": "A component for rendering HTML, CSS, Javascript code with editable source and live preview.",
   "main": "dist/index.js",
   "scripts": {
     "start": "DEBUG=app:* babel-node bin/develop --hot",
