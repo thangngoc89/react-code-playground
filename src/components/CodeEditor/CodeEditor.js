@@ -1,11 +1,15 @@
 import React, { Component, PropTypes } from 'react'
 import CodeMirror from 'react-codemirror'
 
-class Editor extends Component {
+class CodeEditor extends Component {
   static propTypes = {
     code: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     options: PropTypes.object
+  };
+
+  static defaultProps = {
+    code: ''
   };
 
   get options () {
@@ -31,4 +35,4 @@ class Editor extends Component {
   }
 }
 
-export default Editor
+export default CodeEditor

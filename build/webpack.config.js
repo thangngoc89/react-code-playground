@@ -7,6 +7,7 @@ const result = () => {
   let WpConfig = new webpackConfigurator()
 
   WpConfig.merge({
+    target: 'web',
     colors: true,
     progress: true,
     output: {
@@ -26,7 +27,7 @@ const result = () => {
           'webpack-hot-middleware/client?path=/__webpack_hmr'
         ]
       },
-      devtool: 'eval',
+      devtool: 'cheap-module-eval-source-map',
       debug: true,
       watch: true
     })
@@ -35,6 +36,12 @@ const result = () => {
   // ------------------------------------
   // Loader
   // ------------------------------------
+  WpConfig.preLoader('js', {
+    test: /\.js$/,
+    loader: 'eslint?fix',
+    exclude: /node_modules/
+  })
+
   WpConfig.loader('js', {
     test: /\.js$/,
     loader: 'babel',
@@ -75,8 +82,13 @@ const result = () => {
   WpConfig.plugin('define', webpack.DefinePlugin, [config.globals])
 
   if (config.env === 'development') {
-    WpConfig.plugin('no-error', webpack.NoErrorsPlugin)
     WpConfig.plugin('hmr', webpack.HotModuleReplacementPlugin)
+  }
+
+  if (config.env === 'production') {
+    WpConfig.plugin('occcurenceOrder', webpack.optimize.OccurrenceOrderPlugin)
+    WpConfig.plugin('dedupe', webpack.optimize.DedupePlugin)
+    WpConfig.plugin('noError', webpack.NoErrorsPlugin)
   }
 
   return WpConfig.resolve()

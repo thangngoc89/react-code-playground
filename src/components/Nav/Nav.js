@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import RenderTab from './RenderTab'
 import styles from './Nav.scss'
-const cx = require('classnames/bind').bind(styles)
 
 class Nav extends Component {
   static propTypes = {

@@ -1,13 +1,13 @@
 import React, { Component, PropTypes } from 'react'
 import styles from './Result.scss'
-import generator from './generateIframeContent'
+import generateHTML from './generateHTML'
 
 class Result extends Component {
   static propTypes = {
     code: PropTypes.shape({
-      html: PropTypes.string.isRequired,
-      css: PropTypes.string.isRequired,
-      javascript: PropTypes.string.isRequired,
+      html: PropTypes.string,
+      css: PropTypes.string,
+      javascript: PropTypes.string
     })
   };
 
@@ -19,8 +19,12 @@ class Result extends Component {
     this.renderIframeContent(nextProps.code)
   }
 
+  shouldComponentUpdate (nextProps) {
+    return (nextProps.code !== this.props.code)
+  }
+
   renderIframeContent (code) {
-    const content = generator(code)
+    const content = generateHTML(code)
     this.iframe.contentWindow.document.open()
     this.iframe.contentWindow.document.write(content)
     this.iframe.contentWindow.document.close()
@@ -28,12 +32,10 @@ class Result extends Component {
 
   render () {
     return (
-      <div className={styles.div}>
-        <iframe
-          className={styles.iframe}
-          ref={(ref) => this.iframe = ref}
-        />
-      </div>
+      <iframe
+        className={styles.iframe}
+        ref={ref => this.iframe = ref}
+      />
     )
   }
 }
