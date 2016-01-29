@@ -26,7 +26,7 @@ const result = () => {
           'webpack-hot-middleware/client?path=/__webpack_hmr'
         ]
       },
-      devtools: 'eval',
+      devtool: 'eval',
       debug: true,
       watch: true
     })
