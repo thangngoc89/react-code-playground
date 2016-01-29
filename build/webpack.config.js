@@ -7,14 +7,6 @@ const result = () => {
   let WpConfig = new webpackConfigurator()
 
   WpConfig.merge({
-    entry: {
-      app: [
-        paths.demo('app'),
-        'webpack-hot-middleware/client?path=/__webpack_hmr'
-      ]
-    },
-    debug: true,
-    watch: true,
     colors: true,
     progress: true,
     output: {
@@ -26,23 +18,66 @@ const result = () => {
     }
   })
 
+  if (config.env === 'development') {
+    WpConfig.merge({
+      entry: {
+        app: [
+          paths.demo('app'),
+          'webpack-hot-middleware/client?path=/__webpack_hmr'
+        ]
+      },
+      devtools: 'eval',
+      debug: true,
+      watch: true
+    })
+  }
+
+  // ------------------------------------
+  // Loader
+  // ------------------------------------
   WpConfig.loader('js', {
     test: /\.js$/,
     loader: 'babel',
     exclude: /node_modules/
   })
 
+  const cssLoader = 'css?localIdentName=Playground--[name]-[local]&modules'
   WpConfig.loader('sass', {
     test: /\.scss$/,
-    loader: 'style!css!sass'
+    loaders: [
+      'style',
+      cssLoader,
+      'sass'
+    ]
   })
+
+  WpConfig.loader('css', {
+    test: /\.css$/,
+    loaders: [
+      'style',
+      cssLoader
+    ],
+    exclude: /node_modules/
+  })
+
+  WpConfig.loader('css-global', {
+    test: /\.css$/,
+    loaders:  [
+      'style',
+      'css'
+    ],
+    include: /node_modules/
+  })
+
+  // ------------------------------------
+  // Loaders
+  // ------------------------------------
+  WpConfig.plugin('define', webpack.DefinePlugin, [config.globals])
 
   if (config.env === 'development') {
     WpConfig.plugin('no-error', webpack.NoErrorsPlugin)
     WpConfig.plugin('hmr', webpack.HotModuleReplacementPlugin)
   }
-
-  WpConfig.plugin('define', webpack.DefinePlugin, [config.globals])
 
   return WpConfig.resolve()
 }

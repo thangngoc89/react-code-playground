@@ -1,0 +1,35 @@
+@import "../global.scss";
+
+.nav {
+  display: block;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  background: $color-background;
+  border-style: solid;
+  border-color: rgba($color-primary, .4);
+  border-width: 0 0 1px 0;
+  list-style-type: none;
+}
+
+.tab {
+  float: left;
+  padding: .8rem;
+  background: $color-background;
+  color: $color-text;
+  cursor: pointer;
+
+  &:hover, &:focus {
+    background: rgba($color-text, .7);
+    color: $color-background;
+  }
+
+  &:active {
+    background: rgba($color-primary, 0.12);
+  }
+}
+
+.tabActive {
+  background: $color-text;
+  color: $color-background;
+}
