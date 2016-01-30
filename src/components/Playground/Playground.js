@@ -10,11 +10,7 @@ class Playground extends Component {
     html: PropTypes.object,
     css: PropTypes.object,
     javascript: PropTypes.object,
-
-    cssParser: PropTypes.object,
-    javascriptParser: PropTypes.object,
-    htmlParser: PropTypes.object,
-
+    plugins: PropTypes.array,
     compiling: PropTypes.array.isRequired,
     activeTab: PropTypes.string.isRequired,
     tabSet: PropTypes.func.isRequired,
@@ -43,11 +39,9 @@ class Playground extends Component {
     return {
       code: this.props[activeTab]['original'],
       options: {
-        // Get CodeMirrorMode from default value
-        // or from Parser using convention
         mode: codeMirrorMode(
           activeTab,
-          this.props[activeTab + 'Parser']
+          this.parsers(activeTab)
         )
       },
       onChange: this.props.codeSet
@@ -74,14 +68,22 @@ class Playground extends Component {
   }
 
   /**
-   * Get all props ends with `Parsers`
+   * Get all plugins with type
+   * ends with `Parsers`
    * @return {array} [parsers]
    */
-  get parsers () {
-    return Object
-      .keys(this.props)
-      .filter(t => t.endsWith('Parser'))
-      .map(t => this.props[t])
+  parsers (codeType) {
+    let plugins = this.props.plugins
+    if (plugins) {
+      plugins = plugins
+        .filter(t => t.type === 'parser')
+      if (codeType) {
+        plugins = plugins
+          .filter(t => t.codeType === codeType)
+      }
+    }
+
+    return plugins
   }
 
   /**
@@ -102,7 +104,7 @@ class Playground extends Component {
       <div className={styles.main}>
         <Nav
           activeTab={this.props.activeTab}
-          parsers={this.parsers}
+          parsers={this.parsers()}
           onTabClick={this.tabSet}
         />
         {

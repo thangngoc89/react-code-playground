@@ -1,7 +1,8 @@
 // import sass from 'sass.js'
 const parser = {
+  type: 'parser',
   name: 'SASS',
-  type: 'css',
+  codeType: 'css',
   codeMirrorMode: 'sass',
   parse: function (code, cb) {
     if (

@@ -9,14 +9,16 @@ import 'codemirror/mode/htmlmixed/htmlmixed'
 import 'codemirror/lib/codemirror.css'
 import './styles.scss'
 
-import sassParser from '../src/parsers/sass'
+import sassParser from '../src/plugins/parsers/sass'
 
 const cssSlack = require('raw!./examples/slack-logo/sass.example')
 const htmlSlack = require('raw!./examples/slack-logo/html.example')
 const codeSlack = {
   css: cssSlack,
   html: htmlSlack,
-  cssParser: sassParser
+  plugins: [
+    sassParser
+  ]
 }
 
 const cssEditr = require('raw!./examples/editr.js/css.example')
