@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux'
 export const CODE_SET = 'playground/code/SET'
 export const CODE_SET_PARSED = 'playground/code/SET_PARSED'
 export const CODE_SYNC = 'playground/code/SYNC'
+export const CODE_REFRESH = 'playground/code/REFRESH'
 
 // ------------------------------------
 // Actions
@@ -14,6 +15,7 @@ export const CODE_SYNC = 'playground/code/SYNC'
 export const codeSet = createAction(CODE_SET, (code, type) => ({code, type}))
 export const codeSetParsed = createAction(CODE_SET_PARSED, (code, type) => ({code, type}))
 export const codeSync = createAction(CODE_SYNC)
+export const codeRefresh = createAction(CODE_REFRESH)
 
 /**
  * Get current code type via activeTab
@@ -70,7 +72,8 @@ export const actions = {
   codeSet: codeSetWithTab,
   codeSetParsed,
   codeSync: codeSyncAndParse,
-  codeParse
+  codeParse,
+  codeRefresh
 }
 
 // ------------------------------------
@@ -99,5 +102,6 @@ export default handleActions({
     css: payload.css,
     html: payload.html,
     javascript: payload.javascript
-  })
+  }),
+  [CODE_REFRESH]: (state) => initialState
 }, initialState)

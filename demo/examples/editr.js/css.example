@@ -118,8 +118,6 @@ input[type="radio"]:checked + .switch--off {
     background-color: rgba(255,255,255, .9);
 }
 
-/*------------------------------------*/
-
 input[type="radio"]:checked + .radio {
     color: #f8f8f8;
 }

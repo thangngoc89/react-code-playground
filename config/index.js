@@ -1,9 +1,8 @@
 /* eslint key-spacing:0 spaced-comment:0 */
 import _debug from 'debug'
 import path from 'path'
-import { argv } from 'yargs'
 
-const debug = _debug('app:config:base')
+const debug = _debug('playground:config')
 
 const config = {
   env : process.env.NODE_ENV || 'development',
@@ -14,7 +13,6 @@ const config = {
   dir_client  : 'src',
   dir_demo    : 'demo',
   dir_dist    : 'dist',
-  hmr         : argv.hot,
 
   // ----------------------------------
   // Dev Server config
