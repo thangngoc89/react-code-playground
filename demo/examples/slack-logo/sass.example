@@ -1,0 +1,206 @@
+$slack-size: 96px;
+$dot-diameter: 18px;
+$slack-angle: 15deg;
+$duration: 2s;
+
+$slack-blue: #6ecadc;
+$slack-yellow: #e9a820;
+$slack-pink: #e01563;
+$slack-green: #3eb991;
+
+.c-slack {
+  position: relative;
+  z-index: 100;
+  margin: 80px auto;
+  width: $slack-size;
+  height: $slack-size;
+}
+
+.c-slack__dot {
+  display: block;
+  position: absolute;
+  width: $dot-diameter;
+  height: $dot-diameter;
+  border-radius: $dot-diameter/2;
+}
+
+.c-slack__dot--a {
+  top: 0; left: 0;
+  background-color: $slack-green;
+}
+
+.c-slack__dot--b {
+  top: 0; right: 0;
+  background-color: $slack-blue;
+}
+
+.c-slack__dot--c {
+  bottom: 0; right: 0;
+  background-color: $slack-yellow;
+}
+
+.c-slack__dot--d {
+  bottom: 0; left: 0;
+  background-color: $slack-pink;
+}
+
+@keyframes slack-animation--a {
+  0% {
+    top: 0;
+    bottom: auto;
+    height: $dot-diameter;
+  }
+  33% {
+    top: 0;
+    bottom: auto;
+    height: $slack-size;
+  }
+  34% {
+    top: auto;
+    bottom: 0;
+    height: $slack-size;
+  }
+  66% {
+    top: auto;
+    bottom: 0;
+    height: $dot-diameter;
+  }
+  100% {
+    top: auto;
+    bottom: $slack-size - $dot-diameter;
+    height: $dot-diameter;
+  }
+}
+
+.c-slack__dot--a {
+  /* other styles */
+  animation: slack-animation--a $duration infinite;
+}
+@keyframes slack-animation--b {
+  0% {
+    right: 0;
+    left: auto;
+    width: $dot-diameter;
+  }
+  33% {
+    right: 0;
+    left: auto;
+    width: $slack-size;
+  }
+  34% {
+    right: auto;
+    left: 0;
+    width: $slack-size;
+  }
+  66% {
+    right: auto;
+    left: 0;
+    width: $dot-diameter;
+  }
+  100% {
+    right: auto;
+    left: $slack-size - $dot-diameter;
+    width: $dot-diameter;
+  }
+}
+
+.c-slack__dot--b {
+  /* other styles */
+  animation: slack-animation--b $duration infinite;
+}
+
+@keyframes slack-animation--c {
+  0% {
+    bottom: 0;
+    top: auto;
+    height: $dot-diameter;
+  }
+  33% {
+    bottom: 0;
+    top: auto;
+    height: $slack-size;
+  }
+  34% {
+    bottom: auto;
+    top: -($slack-size - $slack-size);
+    height: $slack-size;
+  }
+  66% {
+    bottom: auto;
+    top: -($slack-size - $slack-size);
+    height: $dot-diameter;
+  }
+  100% {
+    bottom: auto;
+    top: $slack-size - $dot-diameter;
+    height: $dot-diameter;
+  }
+}
+
+.c-slack__dot--c {
+  /* other styles */
+  animation: slack-animation--c $duration infinite;
+}
+
+@keyframes slack-animation--d {
+  0% {
+    left: 0;
+    right: auto;
+    width: $dot-diameter;
+  }
+  33% {
+    left: 0;
+    right: auto;
+    width: $slack-size;
+  }
+  34% {
+    left: auto;
+    right: -($slack-size - $slack-size);
+    width: $slack-size;
+  }
+  66% {
+    left: auto;
+    right: -($slack-size - $slack-size);
+    width: $dot-diameter;
+  }
+  100% {
+    left: auto;
+    right: $slack-size - $dot-diameter;
+    width: $dot-diameter;
+  }
+}
+
+.c-slack__dot--d {
+  /* other styles */
+  animation: slack-animation--d $duration infinite;
+}
+
+.c-slack__dot--a {
+  /* other styles */
+  transform: translateX($dot-diameter);
+}
+
+.c-slack__dot--b {
+  /* other styles */
+  transform: translateY($dot-diameter);
+}
+
+.c-slack__dot--c {
+  /* other styles */
+  transform: translateX(-$dot-diameter);
+}
+
+.c-slack__dot--d {
+  /* other styles */
+  transform: translateY(-$dot-diameter);
+}
+
+.c-slack {
+  /* other styles */
+  transform: rotate(-$slack-angle);
+}
+
+.c-slack__dot {
+  /* other styles */
+  mix-blend-mode: multiply;
+}
