@@ -33,7 +33,9 @@ class Playground extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    // TODO: Write me
+    if (!nextProps.isSynced) {
+      this.props.codeSync(nextProps)
+    }
   }
 
   get codeEditorProps () {

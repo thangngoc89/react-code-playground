@@ -1,12 +1,14 @@
 {
   "name": "code-playground",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A component for rendering HTML, CSS, Javascript code with editable source and live preview.",
   "main": "dist/index.js",
   "scripts": {
-    "start": "DEBUG=app:* babel-node bin/develop --hot",
+    "start": "DEBUG=playground:* babel-node bin/develop",
+    "build": "DEBUG=playground:* NODE_ENV=production babel-node bin/build",
     "test": "mocha",
-    "lint": "eslint"
+    "lint": "eslint",
+    "deploy": "gh-pages --repo https://$GH_TOKEN@github.com/thangngoc89/react-playground-component.git -d dist"
   },
   "repository": {
     "type": "git",
@@ -40,26 +42,27 @@
     "eslint-config-standard-react": "^1.2.1",
     "eslint-loader": "^1.2.1",
     "express": "^4.13.4",
+    "fs-extra": "^0.26.5",
+    "gh-pages": "^0.9.0",
+    "html-webpack-plugin": "^2.7.2",
     "mocha": "^2.4.5",
     "node-sass": "^3.4.2",
     "raw-loader": "^0.5.1",
-    "redux-thunk": "^1.0.3",
+    "react-dom": "^0.14.7",
     "sass-loader": "^3.1.2",
     "style-loader": "^0.13.0",
     "webpack": "^1.12.12",
     "webpack-configurator": "^0.3.1",
     "webpack-dev-middleware": "^1.5.1",
-    "webpack-hot-middleware": "^2.6.4",
-    "yargs": "^3.32.0"
+    "webpack-hot-middleware": "^2.6.4"
   },
   "dependencies": {
     "classnames": "^2.2.3",
     "react": "^0.14.7",
     "react-codemirror": "^0.2.5",
-    "react-dom": "^0.14.7",
     "react-redux": "^4.1.2",
     "redux": "^3.1.4",
     "redux-actions": "^0.9.1",
-    "sass.js": "^0.9.5"
+    "redux-thunk": "^1.0.3"
   }
 }

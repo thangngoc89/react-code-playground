@@ -1,0 +1,24 @@
+language: node_js
+sudo: false
+node_js:
+  - 5
+matrix:
+  fast_finish: true
+
+script: npm run build
+
+after_success:
+  - git config user.name "Khoa Nguyen"
+  - git config user.email "hi@khoanguyen.me"
+
+deploy:
+  skip_cleanup: true
+  provider: script
+  script: npm run deploy
+  on:
+    branch: master
+    node: '5'
+
+env:
+  global:
+    - secure: e/8GWDvLL9piuuHJXk0YWQf8V5stnqKuDT+n8DcedV5z05Q1rWSuXSzOTbejR4LOiZnwZqJV9DLbFy7hDccn5rhH9iBmQ/RW5zTpxlavkOM//CaeCXF6GS+ewTM9m1C6uSkrZHF8fL+B/AaSP6Awv8fWkl5/fvxQ3rLlS75LRB43CL0y5/SqY/gNYuOycdziP8Tfi+OFXrFitH5Ils7Eg9/gIZDDGPHl06zIPf3+F77cFXIQeSkYT+YTYFGuVN/0YeQXYmwzUcvR899cibt3hb6t7T9gvDUuWEdU+uLyavh7H981I1bO4JIzK1GylsnqGp67vynt8YqZOULKa9UbW11JjjnCKEUg/GQ88h0grdJCN4cSVDOs08X+pL/zkx0tCeO3JSciqxDyivpCAPoMLAzZqfEt5FuTAm1Gp+5fmHnyYIaLGlQcCQpmLgVAonIch0jKj61yp4KL8kHOYL77Aj+uqNc/QuaIZSvkWxbmMzisBUb2yruu116B3pCemhp9yAddbVwpd27Ki3Z15WptWlhatVly+90FPpCDcHnI9BlVgEizweTLawN9dyXOlzsAbiFySe/IZSYSpqEZbam9bjkON9RxDusWZNQ0zAnVRXbT/FY1dPm4l5FIrMegm2QodgHuKhXk63jcsc6omE2x0t633Qn3mHLZmKtSc67ltUU=

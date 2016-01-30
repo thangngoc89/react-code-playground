@@ -1,0 +1,53 @@
+$color-main: #8904B1;
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+:global .CodeMirror {
+  height: calc(100% - 2.6rem);
+}
+
+/*
+ * Below styles are for docs only
+ */
+
+:global .container {
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 2rem;
+  padding-left: 2rem;
+}
+
+:global .button-row {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+
+  button {
+    cursor: pointer;
+    flex-grow: 1;
+    padding: 1.5rem;
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: $color-main;
+    background: #fff;
+    border: solid 2px $color-main;
+
+    &:first-of-type {
+      margin-right: 3rem;
+    }
+
+    &:hover {
+      color: #fff;
+      background-color: $color-main;
+    }
+  }
+}
+
+:global .github-fork-ribbon {
+  background: $color-main !important;
+}

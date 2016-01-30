@@ -1,16 +1,26 @@
-import React from 'react'
-import { Provider } from 'react-redux'
+import React, { Component } from 'react'
 import Playground from './components/Playground'
 import store from './redux/store'
+import { codeRefresh } from './redux/modules/code'
 
-const CodePlayground = (props) => {
-  return (
-    <Provider store={store}>
+class CodePlayground extends Component {
+  /**
+   * Set isSynced to false when receive new props
+   */
+  componentWillReceiveProps (nextProps) {
+    if (nextProps !== this.props) {
+      store.dispatch(codeRefresh())
+    }
+  }
+
+  render () {
+    return (
       <Playground
-        {...props}
+        store={store}
+        {...this.props}
       />
-    </Provider>
-  )
+    )
+  }
 }
 
 export default CodePlayground

@@ -7,19 +7,18 @@ import webpackHotMiddleware from "webpack-hot-middleware"
 import historyFallbackMiddleware from 'connect-history-api-fallback'
 import wpConfig from '../build/webpack.config'
 
-const debug = require('debug')('app:bin:server')
+const debug = require('debug')('playground:bin:develop')
 const paths = config.utils_paths
 const webpackCompiler = webpack(wpConfig)
 
 const server = express()
 const router = Router()
 
-router.use(historyFallbackMiddleware({
+server.use('/', express.static(paths.demo()))
+server.use(historyFallbackMiddleware({
   verbost: false
 }))
-router.get('*', express.static(paths.demo()))
 
-server.use('/', router)
 server.use(webpackDevMiddleware(webpackCompiler, {
   publicPath: '/',
   stats: {
@@ -27,9 +26,9 @@ server.use(webpackDevMiddleware(webpackCompiler, {
     // hide all chunk dependencies because it's unreadable
     chunkModules: false,
     // noize
-    // assets: false
+    assets: false
   },
-  // noInfo: true
+  noInfo: true
 }))
 
 server.use(webpackHotMiddleware(webpackCompiler))
