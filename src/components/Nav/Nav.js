@@ -24,11 +24,7 @@ class Nav extends Component {
     const { parsers } = this.props
     if (parsers) {
       parsers.map(t => {
-        const {
-          name,
-          type
-        } = t
-        tabs[type] = name
+        tabs[t.codeType] = t.name
       })
     }
     return tabs

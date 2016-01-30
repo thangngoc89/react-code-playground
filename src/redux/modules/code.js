@@ -49,14 +49,29 @@ export const codeSyncAndParse = (props) => {
  * @return {function}       [redux-thunk]
  */
 export const codeParse = (props) => {
+  // TODO: Refactor me
+  // Duplicate with Playground.parsers(codeType)
+  const getParser = (codeType) => {
+    if (props.plugins === undefined) {
+      return undefined
+    }
+    let parser = props.plugins
+      .filter(t =>
+        (t.type === 'parser') &&
+        (t.codeType === codeType)
+      )
+    if (parser) {
+      parser = parser[0]
+    }
+
+    return parser
+  }
   return (dispatch, getState) => {
     const doParse = (codeType) => {
-      // Convention: css --> cssParser
-      const parser = codeType + 'Parser'
-      if (props[parser]) {
-        // TODO: Checking for valid parser
-        dispatch(compilingActions.compileStart(props[parser].type))
-        props[parser].parse(
+      const parser = getParser(codeType)
+      if (parser !== undefined) {
+        dispatch(compilingActions.compileStart(parser.codeType))
+        parser.parse(
           getState().code[codeType].original,
           bindActionCreators(compilingActions.compileComplete, dispatch)
         )
