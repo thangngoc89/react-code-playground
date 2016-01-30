@@ -1,48 +1,52 @@
 import React, { Component, PropTypes } from 'react'
-import RenderTab from './RenderTab'
+import Tab from './Tab'
 import styles from './Nav.scss'
 
 class Nav extends Component {
   static propTypes = {
     activeTab: PropTypes.string,
-    onTabClick: PropTypes.func.isRequired
+    onTabClick: PropTypes.func.isRequired,
+    parsers: PropTypes.array
   };
 
   static defaultProps = {
     activeTab: 'result'
   };
 
+  get tabs () {
+    let tabs = {
+      'result': 'Result',
+      'html': 'HTML',
+      'css': 'CSS',
+      'javascript': 'JS'
+    }
+
+    const { parsers } = this.props
+    if (parsers) {
+      parsers.map(t => {
+        const {
+          name,
+          type
+        } = t
+        tabs[type] = name
+      })
+    }
+    return tabs
+  }
   render () {
-    const tabs = [
-      {
-        name: 'result',
-        displayName: 'Result'
-      },
-      {
-        name: 'html',
-        displayName: 'HTML'
-      },
-      {
-        name: 'css',
-        displayName: 'CSS'
-      },
-      {
-        name: 'javascript',
-        displayName: 'JS'
-      }
-    ]
+    const tabsForRender = Object.keys(this.tabs).map(type =>
+      <Tab
+        key={type}
+        type={type}
+        displayName={this.tabs[type]}
+        activeTab={this.props.activeTab}
+        onTabClick={this.props.onTabClick}
+      />
+    )
 
     return (
       <ul className={styles.nav}>
-        {tabs.map((tab) => (
-          <RenderTab
-            key={tab.name}
-            name={tab.name}
-            displayName={tab.displayName}
-            activeTab={this.props.activeTab}
-            onTabClick={this.props.onTabClick}
-          />
-        ))}
+        {tabsForRender}
       </ul>
     )
   }

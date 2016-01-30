@@ -74,6 +74,17 @@ class Playground extends Component {
   }
 
   /**
+   * Get all props ends with `Parsers`
+   * @return {array} [parsers]
+   */
+  get parsers () {
+    return Object
+      .keys(this.props)
+      .filter(t => t.endsWith('Parser'))
+      .map(t => this.props[t])
+  }
+
+  /**
    * Switch tab, trigger parse
    * @param  {string} tab [tab name]
    */
@@ -91,6 +102,7 @@ class Playground extends Component {
       <div className={styles.main}>
         <Nav
           activeTab={this.props.activeTab}
+          parsers={this.parsers}
           onTabClick={this.tabSet}
         />
         {
