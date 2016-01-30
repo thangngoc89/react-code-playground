@@ -8,8 +8,8 @@ matrix:
 script: npm run build
 
 after_success:
-  - git config user.name "Khoa Nguyen"
-  - git config user.email "hi@khoanguyen.me"
+  - git config --global user.name "Khoa Nguyen"
+  - git config --global user.email "hi@khoanguyen.me"
 
 deploy:
   skip_cleanup: true
