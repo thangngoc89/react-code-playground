@@ -11,6 +11,7 @@ const result = () => {
     entry: paths.demo('app'),
     target: 'web',
     colors: true,
+    debug: true,
     progress: true,
     output: {
       filename: 'app-[hash].js',
@@ -108,7 +109,13 @@ const result = () => {
       warning: false
     }])
     WpConfig.plugin('html', HtmlWebpackPlugin, [{
-      template: paths.demo('gh-pages.html')
+      template: paths.demo('gh-pages.html'),
+      hash: false,
+      filename: 'index.html',
+      inject: 'body',
+      minify: {
+        collapseWhitespace: true
+      }
     }])
   }
 

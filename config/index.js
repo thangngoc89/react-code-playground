@@ -48,5 +48,6 @@ config.utils_paths = (() => {
 })()
 
 debug (`Generated config for ${config.env} environment`)
+JSON.stringify(config, null, 2).split("\n").forEach(l => debug(l))
 
 export default config
