@@ -2,24 +2,24 @@ import React from 'react'
 import styles from './Nav.scss'
 const cx = require('classnames/bind').bind(styles)
 
-const RenderTab = ({
-  name,
+const Tab = ({
+  type,
   displayName,
   activeTab,
   onTabClick
 }) => {
   const className = cx('tab', {
-    tabActive: activeTab === name
+    tabActive: activeTab === type
   })
 
   return (
     <li
       className={className}
-      onClick={() => onTabClick(name)}
+      onClick={() => onTabClick(type)}
     >
       <span>{displayName}</span>
     </li>
   )
 }
 
-export default RenderTab
+export default Tab
