@@ -1,6 +1,6 @@
 {
   "name": "code-playground",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A component for rendering HTML, CSS, Javascript code with editable source and live preview.",
   "main": "lib/index.js",
   "scripts": {
@@ -13,7 +13,8 @@
     "build": "DEBUG=playground:* NODE_ENV=production babel-node bin/build",
     "test": "mocha",
     "lint": "eslint .",
-    "deploy": "gh-pages --repo https://$GH_TOKEN@github.com/thangngoc89/react-playground-component.git -d dist"
+    "deploy": "gh-pages --repo https://$GH_TOKEN@github.com/thangngoc89/react-playground-component.git -d dist",
+    "prepublish": "npm run babelify && npm run babelify:webpack"
   },
   "repository": {
     "type": "git",
