@@ -86,7 +86,10 @@ const result = () => {
   // Plugins
   // ------------------------------------
   WpConfig.plugin('define', webpack.DefinePlugin, [config.globals])
-
+  WpConfig.plugin('extractCSS', ExtractTextPlugin, [
+    'app.[hash].css'
+  ])
+  
   if (config.env === 'development') {
     WpConfig.plugin('hmr', webpack.HotModuleReplacementPlugin)
     WpConfig.plugin('html', HtmlWebpackPlugin, [{
@@ -120,9 +123,6 @@ const result = () => {
         collapseWhitespace: true
       }
     }])
-    WpConfig.plugin('extractCSS', ExtractTextPlugin, [
-      'app.[hash].css'
-    ])
   }
 
   return WpConfig.resolve()
