@@ -89,7 +89,7 @@ const result = () => {
   WpConfig.plugin('extractCSS', ExtractTextPlugin, [
     'app.[hash].css'
   ])
-  
+
   if (config.env === 'development') {
     WpConfig.plugin('hmr', webpack.HotModuleReplacementPlugin)
     WpConfig.plugin('html', HtmlWebpackPlugin, [{
