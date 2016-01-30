@@ -1,4 +1,4 @@
-import webpack from "webpack"
+import webpack from 'webpack'
 const debug = require('debug')('playground:bin:webpack')
 
 export default (webpackConfig, cb) => {
@@ -10,11 +10,11 @@ export default (webpackConfig, cb) => {
     if (stats.hasErrors()) {
       stats.compilation.errors.forEach(
         item => {
-          item.stack.split("\n").forEach(line => debug(line))
+          item.stack.split('\n').forEach(line => debug(line))
         }
       )
 
-      throw new Error("webpack build failed with errors")
+      throw new Error('webpack build failed with errors')
     }
     cb(stats)
   })

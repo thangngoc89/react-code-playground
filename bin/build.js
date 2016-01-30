@@ -10,7 +10,7 @@ const paths = config.utils_paths
 debug('Start build')
 fs.emptyDirSync(paths.dist())
 
-webpack(wpConfig, (err) => {
+webpack(wpConfig, () => {
   debug('Webpack build success')
   debug('Copy static files')
   fs.copySync(paths.demo('vendor'), paths.dist('vendor'))

@@ -1,4 +1,6 @@
 dist
+lib
+webpack
 
 node_modules
 *.log
