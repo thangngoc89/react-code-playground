@@ -1,11 +1,12 @@
-import HtmlWebpackPlugin from 'html-webpack-plugin'
-import webpackConfigurator from 'webpack-configurator'
-import webpack from 'webpack'
-import config from '../config'
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const WebpackConfigurator = require('webpack-configurator')
+const webpack = require('webpack')
+const config = require('../config').default
 const paths = config.utils_paths
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 const result = () => {
-  let WpConfig = new webpackConfigurator()
+  const WpConfig = new WebpackConfigurator()
 
   WpConfig.merge({
     entry: paths.demo('app'),
@@ -51,31 +52,33 @@ const result = () => {
     exclude: /node_modules/
   })
 
-  const cssLoader = 'css?localIdentName=CodePlayground--[name]-[local]&modules'
+  const cssLoader = 'css-loader?localIdentName=CodePlayground--[name]__[local]&modules'
   WpConfig.loader('sass', {
     test: /\.scss$/,
-    loaders: [
-      'style',
-      cssLoader,
-      'sass'
-    ]
+    loader: ExtractTextPlugin.extract(
+      'style-loader',
+      [
+        cssLoader,
+        'sass-loader'
+      ]
+    )
   })
 
   WpConfig.loader('css', {
     test: /\.css$/,
-    loaders: [
-      'style',
-      cssLoader
-    ],
+    loader: ExtractTextPlugin.extract(
+      'style-loader',
+      [cssLoader]
+    ),
     exclude: /node_modules/
   })
 
   WpConfig.loader('css-global', {
     test: /\.css$/,
-    loaders:  [
-      'style',
-      'css'
-    ],
+    loader: ExtractTextPlugin.extract(
+      'style-loader',
+      ['css-loader']
+    ),
     include: /node_modules/
   })
 
@@ -117,9 +120,12 @@ const result = () => {
         collapseWhitespace: true
       }
     }])
+    WpConfig.plugin('extractCSS', ExtractTextPlugin, [
+      'app.[hash].css'
+    ])
   }
 
   return WpConfig.resolve()
 }
 
-export default result()
+module.exports = result()

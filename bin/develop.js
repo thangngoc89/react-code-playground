@@ -1,9 +1,9 @@
-import express, { Router } from 'express'
+import express from 'express'
 import config from '../config'
 
 import webpack from 'webpack'
-import webpackDevMiddleware from "webpack-dev-middleware"
-import webpackHotMiddleware from "webpack-hot-middleware"
+import webpackDevMiddleware from 'webpack-dev-middleware'
+import webpackHotMiddleware from 'webpack-hot-middleware'
 import historyFallbackMiddleware from 'connect-history-api-fallback'
 import wpConfig from '../build/webpack.config'
 
@@ -12,7 +12,6 @@ const paths = config.utils_paths
 const webpackCompiler = webpack(wpConfig)
 
 const server = express()
-const router = Router()
 
 server.use('/', express.static(paths.demo()))
 server.use(historyFallbackMiddleware({

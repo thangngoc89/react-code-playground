@@ -13,6 +13,8 @@ const config = {
   dir_client  : 'src',
   dir_demo    : 'demo',
   dir_dist    : 'dist',
+  dir_lib     : 'lib',
+  dir_webpack : 'webpack',
 
   // ----------------------------------
   // Dev Server config
@@ -43,11 +45,12 @@ config.utils_paths = (() => {
     base   : base,
     src    : base.bind(null, config.dir_client),
     demo   : base.bind(null, config.dir_demo),
-    dist   : base.bind(null, config.dir_dist)
+    dist   : base.bind(null, config.dir_dist),
+    lib    : base.bind(null, config.dir_lib),
+    webpack: base.bind(null, config.dir_webpack)
   }
 })()
 
-debug (`Generated config for ${config.env} environment`)
-JSON.stringify(config, null, 2).split("\n").forEach(l => debug(l))
+debug(`Generated config for ${config.env} environment`)
 
 export default config

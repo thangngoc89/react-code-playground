@@ -8,7 +8,11 @@ env:
 matrix:
   fast_finish: true
 
-script: npm run build
+script:
+  - npm run lint
+  - npm run babelify
+  - npm run babelify:webpack
+  - npm run build
 
 before_deploy:
   - git config --global user.name "Khoa Nguyen"

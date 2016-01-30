@@ -6,6 +6,17 @@
       "presets": [
         "react-hmre"
       ]
+    },
+    "lib": {
+      "plugins": [
+        [
+          "babel-plugin-webpack-loaders",
+          {
+            "config": "./build/webpack.config.lib.js",
+            "verbose": false,
+          }
+        ]
+      ]
     }
   }
 }
