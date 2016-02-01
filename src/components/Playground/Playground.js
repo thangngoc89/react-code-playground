@@ -108,6 +108,7 @@ class Playground extends Component {
           onTabClick={this.tabSet}
         />
         {
+          this.props.activeTab === 'result' &&
           isCompiling &&
           <span>Compiling...</span>
         }
