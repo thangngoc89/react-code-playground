@@ -37,7 +37,7 @@ export const codeSetWithTab = (code) => {
  * @return {function}     [redux-thunk]
  */
 export const codeSyncAndParse = (props) => {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch(codeSync(props))
     dispatch(codeParse(props))
   }

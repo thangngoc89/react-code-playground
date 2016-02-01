@@ -1,5 +1,6 @@
 /* eslint key-spacing:0 spaced-comment:0 */
 import _debug from 'debug'
+import { argv } from 'yargs'
 import path from 'path'
 
 const debug = _debug('playground:config')
@@ -20,7 +21,12 @@ const config = {
   // Dev Server config
   // ----------------------------------
   server_host : '0.0.0.0',
-  server_port : 3000
+  server_port : 3000,
+
+  // ----------------------------------
+  // Tests
+  // ----------------------------------
+  coverage_enabled: !argv.watch
 }
 
 // ------------------------------------
@@ -32,7 +38,8 @@ config.globals = {
   },
   'NODE_ENV'     : config.env,
   '__DEV__'      : config.env === 'development',
-  '__PROD__'     : config.env === 'production'
+  '__PROD__'     : config.env === 'production',
+  '__TEST__'     : config.env === 'test'
 }
 
 config.utils_paths = (() => {

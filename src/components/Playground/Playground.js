@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import CodeEditor from '../CodeEditor'
 import Nav from '../Nav'
 import Result from '../Result'
-import codeMirrorMode from './codeMirrorMode'
+import { getCodeMirrorMode } from '../../utils'
 import styles from './Playground.scss'
 
 class Playground extends Component {
@@ -39,7 +39,7 @@ class Playground extends Component {
     return {
       code: this.props[activeTab]['original'],
       options: {
-        mode: codeMirrorMode(
+        mode: getCodeMirrorMode(
           activeTab,
           this.parsers(activeTab)
         )

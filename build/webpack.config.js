@@ -5,7 +5,9 @@ const config = require('../config').default
 const paths = config.utils_paths
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
-const result = () => {
+const {__DEV__, __PROD__} = config.globals
+
+let webpackConfig = () => {
   const WpConfig = new WebpackConfigurator()
 
   WpConfig.merge({
@@ -15,7 +17,7 @@ const result = () => {
     debug: true,
     progress: true,
     output: {
-      filename: 'app-[hash].js',
+      filename: 'app.[hash].js',
       path: paths.dist()
     },
     resolve: {
@@ -23,7 +25,7 @@ const result = () => {
     }
   })
 
-  if (config.env === 'development') {
+  if (__DEV__) {
     WpConfig.merge({
       entry: {
         app: [
@@ -55,30 +57,28 @@ const result = () => {
   const cssLoader = 'css-loader?localIdentName=CodePlayground--[name]__[local]&modules'
   WpConfig.loader('sass', {
     test: /\.scss$/,
-    loader: ExtractTextPlugin.extract(
+    loaders: [
       'style-loader',
-      [
-        cssLoader,
-        'sass-loader'
-      ]
-    )
+      cssLoader,
+      'sass-loader'
+    ]
   })
 
   WpConfig.loader('css', {
     test: /\.css$/,
-    loader: ExtractTextPlugin.extract(
+    loaders: [
       'style-loader',
-      [cssLoader]
-    ),
+      cssLoader
+    ],
     exclude: /node_modules/
   })
 
   WpConfig.loader('css-global', {
     test: /\.css$/,
-    loader: ExtractTextPlugin.extract(
+    loaders: [
       'style-loader',
-      ['css-loader']
-    ),
+      'css-loader'
+    ],
     include: /node_modules/
   })
 
@@ -86,12 +86,10 @@ const result = () => {
   // Plugins
   // ------------------------------------
   WpConfig.plugin('define', webpack.DefinePlugin, [config.globals])
-  WpConfig.plugin('extractCSS', ExtractTextPlugin, [
-    'app.[hash].css'
-  ])
 
-  if (config.env === 'development') {
+  if (__DEV__) {
     WpConfig.plugin('hmr', webpack.HotModuleReplacementPlugin)
+    WpConfig.plugin('noError', webpack.NoErrorsPlugin)
     WpConfig.plugin('html', HtmlWebpackPlugin, [{
       template: paths.demo('develop.html'),
       hash: false,
@@ -103,10 +101,9 @@ const result = () => {
     }])
   }
 
-  if (config.env === 'production') {
+  if (__PROD__) {
     WpConfig.plugin('occcurenceOrder', webpack.optimize.OccurrenceOrderPlugin)
     WpConfig.plugin('dedupe', webpack.optimize.DedupePlugin)
-    WpConfig.plugin('noError', webpack.NoErrorsPlugin)
     WpConfig.plugin('uglify', webpack.optimize.UglifyJsPlugin, [{
       compress: {
         unused: true,
@@ -128,4 +125,25 @@ const result = () => {
   return WpConfig.resolve()
 }
 
-module.exports = result()
+webpackConfig = webpackConfig()
+
+// ------------------------------------
+// Finalize Configuration
+// ------------------------------------
+if (!__DEV__) {
+  webpackConfig.module.loaders.filter(loader =>
+    loader.loaders && loader.loaders.find(name => /css/.test(name.split('?')[0]))
+  ).forEach(loader => {
+    const [first, ...rest] = loader.loaders
+    loader.loader = ExtractTextPlugin.extract(first, rest.join('!'))
+    delete loader.loaders
+  })
+
+  webpackConfig.plugins.push(
+    new ExtractTextPlugin('[name].[contenthash].css', {
+      allChunks: true
+    })
+  )
+}
+
+module.exports = webpackConfig

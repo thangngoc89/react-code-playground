@@ -3,6 +3,6 @@ node_modules/**
 dist/**
 lib/**
 webpack/**
-*.spec.js
+src/**/*.spec.js
 src/index.html
 demo/**
