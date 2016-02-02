@@ -1,6 +1,7 @@
 dist
 lib
 webpack
+coverage
 
 node_modules
 *.log
