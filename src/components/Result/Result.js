@@ -12,19 +12,19 @@ class Result extends Component {
   };
 
   componentDidMount () {
-    this.renderIframeContent(this.props.code)
+    this.renderIframeContent()
   }
 
-  componentWillReceiveProps (nextProps) {
-    this.renderIframeContent(nextProps.code)
+  componentDidUpdate () {
+    this.renderIframeContent()
   }
 
   shouldComponentUpdate (nextProps) {
     return (nextProps.code !== this.props.code)
   }
 
-  renderIframeContent (code) {
-    const content = generateHTML(code)
+  renderIframeContent () {
+    const content = generateHTML(this.props.code)
     this.iframe.contentWindow.document.open()
     this.iframe.contentWindow.document.write(content)
     this.iframe.contentWindow.document.close()

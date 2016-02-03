@@ -4,7 +4,8 @@
   "description": "A component for rendering HTML, CSS, Javascript code with editable source and live preview.",
   "main": "lib/index.js",
   "scripts": {
-    "babelify": "NODE_ENV=lib npm run clean && babel src --out-dir lib",
+    "prebabelify": "npm run clean",
+    "babelify": "NODE_ENV=lib babel src --out-dir lib",
     "build": "DEBUG=playground:* NODE_ENV=production babel-node bin/build",
     "postbabelify": "DEBUG=playground:* babel-node bin/concatStyleSheet",
     "codecov": "cat coverage/*/lcov.info | codecov",
@@ -60,6 +61,7 @@
     "gh-pages": "^0.9.0",
     "html-webpack-plugin": "^2.7.2",
     "isparta-loader": "^2.0.0",
+    "js-beautify": "^1.6.2",
     "karma": "^0.13.19",
     "karma-chai": "^0.1.0",
     "karma-chai-as-promised": "^0.1.2",

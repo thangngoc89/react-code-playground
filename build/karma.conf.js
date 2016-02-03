@@ -21,6 +21,10 @@ const karmaConfig = {
     [`${config.path_base}/tests.webpack.js`]: ['webpack', 'sourcemap']
   },
   reporters: ['spec'],
+  specReporter: {
+    // suppressErrorSummary: true,
+    suppressPassed: true
+  },
   browsers: ['Chrome'],
   customLaunchers: {
     Chrome_travis_ci: {
