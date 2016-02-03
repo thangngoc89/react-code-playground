@@ -26,10 +26,14 @@ describe('utils', () => {
     })
 
     it('warn when passed multiple parsers for same code type', () => {
-      const stub = sinon.stub(console, 'warn')
+      const originalConsole = console.warn
+
+      const _stub = sinon.stub(console, 'warn')
       const array = [parser, parser]
       mode('css', array)
-      stub.should.have.been.calledOnce
+      _stub.should.have.been.calledOnce
+
+      console.warn = originalConsole
     })
 
     it('throw error when type and parser code type doesn not match', () => {

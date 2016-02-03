@@ -68,8 +68,7 @@ class Playground extends Component {
   }
 
   /**
-   * Get all plugins with type
-   * ends with `Parsers`
+   * Get all plugins with type `parser`
    * @return {array} [parsers]
    */
   parsers (codeType) {

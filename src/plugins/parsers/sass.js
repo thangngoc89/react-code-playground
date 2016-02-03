@@ -1,4 +1,3 @@
-// import sass from 'sass.js'
 const parser = {
   type: 'parser',
   name: 'SASS',
@@ -20,7 +19,7 @@ const parser = {
         cb(result.text, 'css')
       } else {
         // TODO: Handle me
-        console.log(result)
+        console.error(result)
       }
     })
   }

@@ -1,4 +1,5 @@
 import * as codeModule from '../code'
+import { actions as compileModule } from '../compiling'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 
@@ -7,7 +8,7 @@ const mockStore = configureMockStore(middlewares)
 
 describe('(redux) code module', () => {
   describe('create action to handle', () => {
-    it('codeSet, onChange event from editor', () => {
+    it('codeSet', () => {
       const code = 'foo'
       const type = 'bar'
 
@@ -17,7 +18,7 @@ describe('(redux) code module', () => {
       })
     })
 
-    it('codeSetParsed, compiled code from preprocessors', () => {
+    it('codeSetParsed', () => {
       const code = 'foo'
       const type = 'bar'
 
@@ -27,14 +28,14 @@ describe('(redux) code module', () => {
       })
     })
 
-    it('codeSync, sync code on mount and receive props', () => {
+    it('codeSync', () => {
       expect(codeModule.codeSync()).to.deep.equal({
         type: codeModule.CODE_SYNC,
         payload: undefined
       })
     })
 
-    it('codeRefresh, set code brach to initial state on change props', () => {
+    it('codeRefresh', () => {
       expect(codeModule.codeRefresh()).to.deep.equal({
         type: codeModule.CODE_REFRESH,
         payload: undefined
@@ -43,8 +44,7 @@ describe('(redux) code module', () => {
   })
 
   describe('create thunk to handle', () => {
-    it('codeSetWithTab, since code editor does not know current codeType ' +
-    'we get it from activeTab in store', (done) => {
+    it('codeSetWithTab', (done) => {
       const initialState = {
         activeTab: 'css'
       }
@@ -58,7 +58,7 @@ describe('(redux) code module', () => {
       store.dispatch(codeModule.codeSetWithTab(code))
     })
 
-    it('codeSyncAndParse, should not called codeParse when there is no parser in props', (done) => {
+    it('codeSyncAndParse', (done) => {
       const initialState = {}
       const props = {}
 
@@ -70,8 +70,53 @@ describe('(redux) code module', () => {
       store.dispatch(codeModule.codeSyncAndParse(props))
     })
 
-    describe('parse code', () => {
+    describe('codeParse', () => {
+      let _spies, _props
+      beforeEach(() => {
+        _spies = {}
+        _spies.dispatch = sinon.spy()
+        _props = {
+          plugins: []
+        }
+      })
 
+      it('do not dispatch any actions when no parsers passed', () => {
+        const thunk = codeModule.codeParse(_props)
+        thunk(_spies.dispatch)
+        _spies.dispatch.should.have.not.been.called
+      })
+
+      it('dispatch compileStart and compileComplete action', () => {
+        const parser = {
+          type: 'parser',
+          codeType: 'css',
+          parse: (code, cb) => {
+            cb('compiled code', 'css')
+          }
+        }
+        const initialState = {
+          code: {
+            css: {
+              original: '.foo{border: 0}'
+            }
+          }
+        }
+
+        _props = {
+          ..._props,
+          plugins: [parser]
+        }
+
+        const thunk = codeModule.codeParse(_props)
+        thunk(_spies.dispatch, () => initialState)
+        _spies.dispatch.should.have.been.calledTwice
+        _spies.dispatch.firstCall.calledWith(
+          compileModule.compileStart('css')
+        )
+        _spies.dispatch.secondCall.calledWith(
+          compileModule.compileComplete('compiled code', 'css')
+        )
+      })
     })
   })
 })
