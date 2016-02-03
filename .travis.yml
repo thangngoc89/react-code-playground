@@ -12,8 +12,6 @@ matrix:
 script:
   - npm run lint
   - npm run test:ci
-  - npm run babelify
-  - npm run babelify:webpack
   - npm run build
 
 before_install:
