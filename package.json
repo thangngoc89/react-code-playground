@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "prebabelify": "npm run clean",
-    "babelify": "NODE_ENV=lib babel src --out-dir lib",
+    "babelify": "NODE_ENV=lib babel --ignore __tests__ src --out-dir lib",
     "build": "DEBUG=playground:* NODE_ENV=production babel-node bin/build",
     "postbabelify": "DEBUG=playground:* babel-node bin/concatStyleSheet",
     "codecov": "cat coverage/*/lcov.info | codecov",
