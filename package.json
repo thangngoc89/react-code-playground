@@ -15,7 +15,7 @@
     "test:ci": "npm test -- --browsers Firefox,Chrome_travis_ci",
     "test:dev": "npm test -- --watch",
     "lint": "eslint .",
-    "deploy": "gh-pages --repo https://$GH_TOKEN@github.com/thangngoc89/react-playground-component.git -d dist",
+    "deploy": "DEBUG=playground:* babel-node bin/deploy",
     "prepublish": "npm run babelify"
   },
   "repository": {
