@@ -34,7 +34,7 @@
   "homepage": "https://github.com/thangngoc89/react-playground-component#readme",
   "devDependencies": {
     "babel-cli": "^6.4.5",
-    "babel-core": "^6.4.5",
+    "babel-core": "^6.5.2",
     "babel-eslint": "^5.0.0-beta9",
     "babel-loader": "^6.2.1",
     "babel-plugin-webpack-loaders": "^0.2.1",
