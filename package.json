@@ -91,7 +91,7 @@
     "webpack-configurator": "^0.3.1",
     "webpack-dev-middleware": "^1.5.1",
     "webpack-hot-middleware": "^2.6.4",
-    "yargs": "^3.32.0"
+    "yargs": "^4.2.0"
   },
   "dependencies": {
     "classnames": "^2.2.3",
