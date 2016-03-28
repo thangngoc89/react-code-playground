@@ -50,7 +50,7 @@
     "connect-history-api-fallback": "^1.1.0",
     "css-loader": "^0.23.1",
     "debug": "^2.2.0",
-    "eslint": "^1.10.3",
+    "eslint": "^2.5.2",
     "eslint-config-standard": "^4.4.0",
     "eslint-config-standard-react": "^1.2.1",
     "eslint-loader": "^1.2.1",
