@@ -3,7 +3,7 @@
 > [jotted](https://github.com/ghinda/jotted) or
 > [editr.js](https://github.com/Idered/Editr.js)
 
-# Code playground
+# Code playground [![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
 
 A component for rendering HTML, CSS, Javascript code with editable source and live preview.
 You can think of this like CodePen or JSFiddle of you own.
